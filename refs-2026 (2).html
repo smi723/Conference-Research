@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- ✏️ CHANGE: Update with your name and conference year -->
+  <title>2026 References — Dr. Jane Smith</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #f9f7f4;
+      --surface:   #ffffff;
+      --ink:       #2e2b28;
+      --muted:     #9b9188;
+      --border:    #ede9e3;
+      --rose:      #dba8ad;
+      --rose-soft: #fdf0f1;
+      --sage:      #a0bfaf;
+      --sage-soft: #f0f7f3;
+      --sky:       #95b8cc;
+      --sky-soft:  #eef5fa;
+      --peach:     #d4ab82;
+      --peach-soft:#fdf5ea;
+      --lavender:  #b5a8c8;
+      --lav-soft:  #f5f1fa;
+      --mint:      #8fc4b7;
+      --mint-soft: #eef8f5;
+      --butter:    #c9b87a;
+      --butter-soft:#faf6e4;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Mulish', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between;
+      height: 64px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .logo-dot { display: inline-block; width: 6px; height: 6px; background: var(--rose); border-radius: 50%; margin: 0 0.4rem 0.15rem; vertical-align: middle; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-left: 1.5rem; transition: color 0.15s; }
+    nav a:hover { color: var(--ink); }
+
+    .page-hero {
+      background: linear-gradient(135deg, var(--rose-soft) 0%, var(--lav-soft) 100%);
+      border-bottom: 1px solid var(--border); padding: 3.5rem 2.5rem 2.5rem;
+    }
+    .breadcrumb { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.6rem; }
+    .page-hero h1 em { font-style: italic; color: var(--rose); }
+    .page-hero .sub { font-size: 0.88rem; color: var(--muted); font-weight: 300; }
+
+    .page-body { max-width: 860px; margin: 2.5rem auto 5rem; padding: 0 2rem; }
+
+    .search-wrap { margin-bottom: 1.5rem; position: relative; }
+    .search-wrap input {
+      width: 100%; padding: 0.8rem 1rem 0.8rem 2.75rem;
+      border: 1px solid var(--border); border-radius: 10px;
+      font-family: 'Mulish', sans-serif; font-size: 0.9rem;
+      background: var(--surface); color: var(--ink); outline: none; transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--rose); }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; pointer-events: none; }
+
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .tab-btn {
+      padding: 0.4rem 1rem; border-radius: 999px; border: 1.5px solid var(--border);
+      background: var(--surface); font-family: 'Mulish', sans-serif; font-size: 0.8rem; font-weight: 600;
+      color: var(--muted); cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .tab-btn:hover { border-color: var(--rose); color: var(--ink); }
+    .tab-btn.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+    .topic-section { margin-bottom: 2.5rem; }
+    .topic-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .topic-swatch { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+    .topic-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); }
+    .topic-count { font-size: 0.72rem; color: var(--muted); background: var(--bg); border: 1px solid var(--border); border-radius: 999px; padding: 0.15rem 0.55rem; margin-left: auto; }
+
+    .ref-list { display: flex; flex-direction: column; gap: 0; }
+    .ref-item {
+      display: flex; flex-direction: column; gap: 0.3rem;
+      padding: 1rem 1.25rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 0; transition: background 0.15s;
+    }
+    .ref-item:first-child { border-radius: 12px 12px 0 0; }
+    .ref-item:last-child  { border-radius: 0 0 12px 12px; }
+    .ref-item:only-child  { border-radius: 12px; }
+    .ref-item + .ref-item { border-top: none; }
+    .ref-item:hover { background: var(--bg); }
+
+    .ref-title { font-weight: 600; font-size: 0.9rem; color: var(--sky); text-decoration: none; line-height: 1.45; transition: color 0.15s; }
+    .ref-title:hover { color: var(--ink); text-decoration: underline; }
+    .ref-title.no-link { color: var(--ink); cursor: default; pointer-events: none; }
+    .ref-citation { font-size: 0.78rem; color: var(--muted); font-style: italic; line-height: 1.5; }
+
+    .no-results { text-align: center; padding: 3rem; color: var(--muted); font-size: 0.9rem; display: none; }
+
+    footer { border-top: 1px solid var(--border); padding: 1.75rem 2.5rem; display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; gap: 0.75rem; }
+    footer a { color: var(--sky); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 580px) {
+      header, footer { padding: 0 1.25rem; }
+      .page-hero { padding: 2.5rem 1.25rem 2rem; }
+      .page-body { padding: 0 1.25rem; margin-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- ✏️ CHANGE: Replace with your name -->
+    <a class="logo" href="index.html">Dr. Jane Smith<span class="logo-dot"></span>Research</a>
+    <nav>
+      <a href="conf-2026.html">← 2026 Conference</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> / <a href="conf-2026.html">2026</a> / References
+    </div>
+    <h1>References &amp; <em>Resources</em></h1>
+    <!-- ✏️ CHANGE: Replace with your conference name and details -->
+    <p class="sub">[Your Conference Name] · City, State · Month 2026</p>
+  </div>
+
+  <div class="page-body">
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search by title, author, or journal…" oninput="filterRefs()" />
+    </div>
+
+    <div class="filter-tabs" id="filterTabs">
+      <button class="tab-btn active" onclick="setTab('all', this)">All Topics</button>
+      <button class="tab-btn" onclick="setTab('defining', this)">Defining Clinical Reasoning</button>
+      <button class="tab-btn" onclick="setTab('probrep', this)">Problem Representation Example</button>
+      <button class="tab-btn" onclick="setTab('evaluation', this)">Evaluation of Curricula</button>
+      <button class="tab-btn" onclick="setTab('practices', this)">Instructional Practices</button>
+      <button class="tab-btn" onclick="setTab('sharp', this)">SHARP Research</button>
+      <button class="tab-btn" onclick="setTab('adapted', this)">Adapted PR Approach</button>
+      <button class="tab-btn" onclick="setTab('resources', this)">Related Resources</button>
+    </div>
+
+
+    <!-- ══ CATEGORY 1: Defining Clinical Reasoning ══ -->
+    <div class="topic-section" data-topic="defining">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--rose);"></div>
+        <span class="topic-title">Defining Clinical Reasoning &amp; Problem Representation</span>
+        <span class="topic-count">6 articles</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/978-3-319-64828-6_4" target="_blank">
+            Bowen &amp; ten Cate: Prerequisites for learning clinical reasoning ↗
+          </a>
+          <span class="ref-citation">Bowen JL, ten Cate O. Prerequisites for learning clinical reasoning. In: ten Cate O, Custers EJFM, Durning SJ, eds. <em>Principles and Practice of Case-based Clinical Reasoning Education.</em> Springer; 2017.</span>
+        </div>
+
+        <div class="ref-item">
+          <span class="ref-title no-link">Chang, Bordage &amp; Connell: The importance of early problem representation during case presentations</span>
+          <span class="ref-citation">Chang RW, Bordage G, Connell KJ. The importance of early problem representation during case presentations. <em>Acad Med.</em> 1998;73(10 Suppl):S109-S111.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1097/ACM.0000000000002618" target="_blank">
+            Daniel et al.: Clinical reasoning assessment methods — a scoping review and practical guidance ↗
+          </a>
+          <span class="ref-citation">Daniel M, Rencic J, Durning SJ, et al. Clinical reasoning assessment methods: A scoping review and practical guidance. <em>Acad Med.</em> 2019;94(6):902-912.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.5811/westjem.2016.11.33191" target="_blank">
+            Gruppen: Clinical reasoning — defining it, teaching it, assessing it, studying it ↗
+          </a>
+          <span class="ref-citation">Gruppen LD. Clinical reasoning: Defining it, teaching it, assessing it, studying it. <em>West J Emerg Med.</em> 2017;18(1):4-7.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1002/jhm.13335" target="_blank">
+            McQuade et al.: Characteristics differentiating problem representation synthesis between novices and experts ↗
+          </a>
+          <span class="ref-citation">McQuade CN, Simonson MG, Lister J, et al. Characteristics differentiating problem representation synthesis between novices and experts. <em>J Hosp Med.</em> 2024;19:468-474.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/s11606-017-4018-x" target="_blank">
+            Wheeler et al.: When the Script Doesn't Fit — an exercise in clinical reasoning ↗
+          </a>
+          <span class="ref-citation">Wheeler DJ, Cascino T, Sharpe BA, Connor DM. When the Script Doesn't Fit: An Exercise in Clinical Reasoning. <em>J Gen Intern Med.</em> 2017;32(7):836-840.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 2: Problem Representation Adapted Example ══ -->
+    <div class="topic-section" data-topic="probrep">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sky);"></div>
+        <span class="topic-title">Problem Representation Adapted Example</span>
+        <span class="topic-count">1 resource</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://www.youtube.com/watch?v=ApSNehBFQak" target="_blank">
+            Connor: Clinical reasoning review — Problem representation [video] ↗
+          </a>
+          <span class="ref-citation">Connor D. Clinical reasoning review: Problem representation [video]. UCSF School of Medicine; 2017.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 3: Evaluation of Clinical Reasoning Curricula ══ -->
+    <div class="topic-section" data-topic="evaluation">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sage);"></div>
+        <span class="topic-title">Evaluation of Clinical Reasoning Curricula</span>
+        <span class="topic-count">3 articles</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1371/journal.pone.0273250" target="_blank">
+            Gold et al.: Clinical reasoning education in the clerkship years — a cross-disciplinary national needs assessment ↗
+          </a>
+          <span class="ref-citation">Gold JG, Knight CL, Christner JG, et al. Clinical reasoning education in the clerkship years: A cross-disciplinary national needs assessment. <em>PLoS One.</em> 2022;17(8):e0273250.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1097/ACM.0000000000005197" target="_blank">
+            Hawks et al.: Clinical reasoning curricula in preclinical undergraduate medical education — a scoping review ↗
+          </a>
+          <span class="ref-citation">Hawks MK, Maciuba JM, Merkebu J, et al. Clinical reasoning curricula in preclinical undergraduate medical education: A scoping review. <em>Acad Med.</em> 2023;98(8):958-965.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/s11606-017-4159-y" target="_blank">
+            Rencic et al.: Clinical reasoning education at US medical schools — results from a national survey ↗
+          </a>
+          <span class="ref-citation">Rencic J, Trowbridge RL Jr, Fagan M, Szauter K, Durning SJ. Clinical reasoning education at US medical schools: Results from a national survey of internal medicine clerkship directors. <em>J Gen Intern Med.</em> 2017;32(11):1242-1246.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 4: Common Clinical Reasoning Instructional Practices ══ -->
+    <div class="topic-section" data-topic="practices">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--peach);"></div>
+        <span class="topic-title">Common Clinical Reasoning Instructional Practices</span>
+        <span class="topic-count">13 articles</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1056/NEJMra054782" target="_blank">
+            Bowen: Educational strategies to promote clinical diagnostic reasoning ↗
+          </a>
+          <span class="ref-citation">Bowen JL. Educational strategies to promote clinical diagnostic reasoning. <em>N Engl J Med.</em> 2006;355(21):2217-2225.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1080/0142159X.2020.1842343" target="_blank">
+            Cooper et al.: Consensus statement on the content of clinical reasoning curricula in undergraduate medical education ↗
+          </a>
+          <span class="ref-citation">Cooper N, Bartlett M, Gay S, et al. Consensus statement on the content of clinical reasoning curricula in undergraduate medical education. <em>Med Teach.</em> 2021;43(2):152-159.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1371/journal.pone.0309606" target="_blank">
+            Delavari et al.: Teaching and learning clinical reasoning skill in undergraduate medical students — a scoping review ↗
+          </a>
+          <span class="ref-citation">Delavari S, Barzkar F, Rikers MJPR, et al. Teaching and learning clinical reasoning skill in undergraduate medical students: A scoping review. <em>PLoS One.</em> 2024;19(10):e0309606.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1186/s12909-021-03075-y" target="_blank">
+            Donker et al.: Retrieval practice and spaced learning ↗
+          </a>
+          <span class="ref-citation">Donker SCM, Vorstenbosch MATM, Gerhardus MJT, Thijssen DHJ. Retrieval practice and spaced learning. <em>BMC Med Educ.</em> 2022;22:65.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1177/23821205231209093" target="_blank">
+            Elvén et al.: Clinical reasoning curricula in health professions education — a scoping review ↗
+          </a>
+          <span class="ref-citation">Elvén M, Welin E, Wiegleb Edström D, et al. Clinical reasoning curricula in health professions education: A scoping review. <em>J Med Educ Curric Dev.</em> 2023;10:23821205231209093.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1080/0142159X.2024.2359963" target="_blank">
+            Parsons et al.: Beyond thinking fast and slow ↗
+          </a>
+          <span class="ref-citation">Parsons AS, Wijesekera TP, Olson APJ, et al. Beyond thinking fast and slow. <em>Med Teach.</em> 2025;47(4):665-676.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1080/0142159X.2018.1497786" target="_blank">
+            Prakash, Sladek &amp; Schuwirth: Interventions to improve diagnostic decision making ↗
+          </a>
+          <span class="ref-citation">Prakash S, Sladek RM, Schuwirth L. Interventions to improve diagnostic decision making. <em>Med Teach.</em> 2019;41(5):517-524.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1080/0142159X.2019.1626977" target="_blank">
+            Schaye et al.: Theory-guided teaching ↗
+          </a>
+          <span class="ref-citation">Schaye V, Eliasz KL, Janjigian M, Stern DT. Theory-guided teaching. <em>Med Teach.</em> 2019;41(10):1192-1199.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/s10459-020-10011-0" target="_blank">
+            Schmidt &amp; Mamede: How cognitive psychology changed medical education research ↗
+          </a>
+          <span class="ref-citation">Schmidt HG, Mamede S. How cognitive psychology changed medical education research. <em>Adv Health Sci Educ.</em> 2020;25(5):1025-1043.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1186/s12909-024-05614-9" target="_blank">
+            Si: Fostering clinical reasoning ability in preclinical students ↗
+          </a>
+          <span class="ref-citation">Si J. Fostering clinical reasoning ability in preclinical students. <em>BMC Med Educ.</em> 2024;24:658.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1186/s12909-024-06111-9" target="_blank">
+            Si: Using cognitive load theory ↗
+          </a>
+          <span class="ref-citation">Si J. Using cognitive load theory. <em>BMC Med Educ.</em> 2024;24:1185.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1136/bmj-2021-068044" target="_blank">
+            Singh, Connor &amp; Dhaliwal: Five strategies for clinicians to advance diagnostic excellence ↗
+          </a>
+          <span class="ref-citation">Singh H, Connor DM, Dhaliwal G. Five strategies for clinicians to advance diagnostic excellence. <em>BMJ.</em> 2022;376:e068044.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/978-3-319-64828-6_1" target="_blank">
+            ten Cate: Introduction to case-based clinical reasoning education ↗
+          </a>
+          <span class="ref-citation">ten Cate O. Introduction. In: <em>Principles and Practice of Case-based Clinical Reasoning Education.</em> Springer; 2018.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 5: SHARP Research ══ -->
+    <div class="topic-section" data-topic="sharp">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--lavender);"></div>
+        <span class="topic-title">SHARP Research</span>
+        <span class="topic-count">3 articles</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1007/s10459-025-10426-7" target="_blank">
+            Cuddy et al.: Better understanding the clinical reasoning skills of 4th-year medical students ↗
+          </a>
+          <span class="ref-citation">Cuddy MM, Runyon C, Luciw-Dubas UA, et al. Better understanding the clinical reasoning skills of 4th-year medical students. <em>Adv Health Sci Educ.</em> 2025;31(2):399-425.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1097/ACM.0000000000006221" target="_blank">
+            Cuddy et al.: Building a validity argument for a new clinical reasoning item format ↗
+          </a>
+          <span class="ref-citation">Cuddy MM, Runyon C, Luciw-Dubas UA, et al. Building a validity argument for a new clinical reasoning item format. <em>Acad Med.</em> 2025;100(12):1506-1514.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1097/ACM.0000000000005769" target="_blank">
+            Runyon et al.: SHARP — a new item format to assess clinical reasoning ↗
+          </a>
+          <span class="ref-citation">Runyon CR, Paniagua MA, Rosenthal FA, et al. SHARP: A new item format to assess clinical reasoning. <em>Acad Med.</em> 2024;99(9):976-980.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 6: Adapted PR Pedagogical Approach ══ -->
+    <div class="topic-section" data-topic="adapted">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--mint);"></div>
+        <span class="topic-title">Adapted Problem Representation Approach</span>
+        <span class="topic-count">1 article</span>
+      </div>
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.1515/dx-2015-0014" target="_blank">
+            Connor &amp; Dhaliwal: When less is more for the struggling clinical reasoner ↗
+          </a>
+          <span class="ref-citation">Connor DM, Dhaliwal G. When less is more for the struggling clinical reasoner. <em>Diagnosis (Berl).</em> 2015;2(3):159-162.</span>
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ══ CATEGORY 7: Related Resources ══ -->
+    <div class="topic-section" data-topic="resources">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--butter);"></div>
+        <span class="topic-title">AI-Tool Generation Resources</span>
+        <span class="topic-count">12 resources</span>
+      </div>
+      <div class="ref-list">
+
+        <!-- Generative AI Platforms -->
+        <div class="ref-item">
+          <a class="ref-title" href="https://docs.anthropic.com" target="_blank">
+            Anthropic: Claude API documentation ↗
+          </a>
+          <span class="ref-citation">Anthropic. Claude API documentation. https://docs.anthropic.com</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://ai.google.dev" target="_blank">
+            Google: Gemini API and developer documentation ↗
+          </a>
+          <span class="ref-citation">Google. Gemini API and developer documentation. https://ai.google.dev</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://learn.microsoft.com/copilot" target="_blank">
+            Microsoft: Copilot documentation ↗
+          </a>
+          <span class="ref-citation">Microsoft. Copilot documentation. https://learn.microsoft.com/copilot</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://developers.openai.com/api/docs" target="_blank">
+            OpenAI: API platform documentation ↗
+          </a>
+          <span class="ref-citation">OpenAI. API platform documentation. https://developers.openai.com/api/docs</span>
+        </div>
+
+        <!-- R / RStudio -->
+        <div class="ref-item">
+          <a class="ref-title" href="https://docs.posit.co/ide/user/" target="_blank">
+            Posit Software: RStudio IDE user guide ↗
+          </a>
+          <span class="ref-citation">Posit Software, PBC. RStudio IDE user guide. https://docs.posit.co/ide/user/</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="http://www.posit.co/" target="_blank">
+            Posit team: RStudio — Integrated Development Environment for R ↗
+          </a>
+          <span class="ref-citation">Posit team. RStudio: Integrated Development Environment for R. http://www.posit.co/</span>
+        </div>
+
+        <!-- Shiny -->
+        <div class="ref-item">
+          <a class="ref-title" href="https://shiny.posit.co/" target="_blank">
+            Chang et al.: shiny — Web Application Framework for R ↗
+          </a>
+          <span class="ref-citation">Chang W, Cheng J, Allaire J, et al. shiny: Web Application Framework for R. https://shiny.posit.co/</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/" target="_blank">
+            Posit Software: Shiny basics ↗
+          </a>
+          <span class="ref-citation">Posit Software, PBC. Shiny basics. https://shiny.posit.co/r/getstarted/shiny-basics/lesson1/</span>
+        </div>
+
+        <!-- Posit Connect Cloud -->
+        <div class="ref-item">
+          <a class="ref-title" href="https://docs.posit.co/connect-cloud/" target="_blank">
+            Posit Software: Connect Cloud documentation ↗
+          </a>
+          <span class="ref-citation">Posit Software, PBC. Connect Cloud documentation. https://docs.posit.co/connect-cloud/</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://docs.posit.co/connect-cloud/how-to/" target="_blank">
+            Posit Software: Connect Cloud how-to guides ↗
+          </a>
+          <span class="ref-citation">Posit Software, PBC. Connect Cloud how-to guides. https://docs.posit.co/connect-cloud/how-to/</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://docs.posit.co/connect-cloud/user/" target="_blank">
+            Posit Software: Connect Cloud user guide ↗
+          </a>
+          <span class="ref-citation">Posit Software, PBC. Connect Cloud user guide. https://docs.posit.co/connect-cloud/user/</span>
+        </div>
+
+        <!-- Prompting Workshop -->
+        <div class="ref-item">
+          <a class="ref-title" href="https://runyoncr.github.io/AIMECON_R_WORKSHOP/" target="_blank">
+            Runyon: Integrating generative AI into R workflows — from APIs to Shiny apps ↗
+          </a>
+          <span class="ref-citation">Runyon C. Integrating generative AI into R workflows: From APIs to Shiny apps. AIMECON R Workshop. Published April 9, 2026. Accessed May 15, 2026.</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults">No references match your search. Try different keywords.</div>
+
+  </div>
+
+  <footer>
+    <!-- ✏️ CHANGE: Replace with your name -->
+    <span>© 2026 Dr. Jane Smith</span>
+    <a href="conf-2026.html">← Back to 2026 Conference</a>
+  </footer>
+
+  <script>
+    let currentTopic = 'all';
+
+    function setTab(topic, btn) {
+      currentTopic = topic;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterRefs();
+    }
+
+    function filterRefs() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      let anyVisible = false;
+
+      document.querySelectorAll('.topic-section').forEach(section => {
+        const sectionTopic = section.getAttribute('data-topic');
+        const topicMatch = currentTopic === 'all' || currentTopic === sectionTopic;
+        if (!topicMatch) { section.style.display = 'none'; return; }
+
+        const items = section.querySelectorAll('.ref-item');
+        let sectionVisible = 0;
+        items.forEach(item => {
+          const matches = !query || item.textContent.toLowerCase().includes(query);
+          item.style.display = matches ? '' : 'none';
+          if (matches) sectionVisible++;
+        });
+
+        section.style.display = sectionVisible > 0 ? '' : 'none';
+        if (sectionVisible > 0) anyVisible = true;
+
+        const visibleItems = [...items].filter(i => i.style.display !== 'none');
+        visibleItems.forEach(item => { item.style.borderRadius = ''; });
+        if (visibleItems.length === 1) {
+          visibleItems[0].style.borderRadius = '12px';
+        } else if (visibleItems.length > 1) {
+          visibleItems[0].style.borderRadius = '12px 12px 0 0';
+          visibleItems[visibleItems.length - 1].style.borderRadius = '0 0 12px 12px';
+        }
+      });
+
+      document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+    }
+  </script>
+
+</body>
+</html>
