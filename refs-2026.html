@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>2026 References — Dr. Jane Smith</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg:        #f9f7f4;
+      --surface:   #ffffff;
+      --ink:       #2e2b28;
+      --muted:     #9b9188;
+      --border:    #ede9e3;
+      --rose:      #dba8ad;
+      --rose-soft: #fdf0f1;
+      --sage:      #a0bfaf;
+      --sage-soft: #f0f7f3;
+      --sky:       #95b8cc;
+      --sky-soft:  #eef5fa;
+      --peach:     #d4ab82;
+      --peach-soft:#fdf5ea;
+      --lavender:  #b5a8c8;
+      --lav-soft:  #f5f1fa;
+      --mint:      #8fc4b7;
+      --mint-soft: #eef8f5;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Mulish', sans-serif; background: var(--bg); color: var(--ink); min-height: 100vh; }
+
+    /* HEADER */
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem; display: flex; align-items: center; justify-content: space-between;
+      height: 64px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .logo-dot { display: inline-block; width: 6px; height: 6px; background: var(--rose); border-radius: 50%; margin: 0 0.4rem 0.15rem; vertical-align: middle; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; margin-left: 1.5rem; transition: color 0.15s; }
+    nav a:hover { color: var(--ink); }
+
+    /* PAGE HERO */
+    .page-hero {
+      background: linear-gradient(135deg, var(--rose-soft) 0%, var(--lav-soft) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2.5rem 2.5rem;
+    }
+    .breadcrumb { font-size: 0.78rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--ink); text-decoration: underline; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 0.6rem; }
+    .page-hero h1 em { font-style: italic; color: var(--rose); }
+    .page-hero .sub { font-size: 0.88rem; color: var(--muted); font-weight: 300; }
+
+    /* LAYOUT */
+    .page-body {
+      max-width: 860px;
+      margin: 2.5rem auto 5rem;
+      padding: 0 2rem;
+    }
+
+    /* SEARCH */
+    .search-wrap {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.75rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Mulish', sans-serif;
+      font-size: 0.9rem;
+      background: var(--surface);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-wrap input:focus { border-color: var(--rose); }
+    .search-wrap input::placeholder { color: var(--muted); }
+    .search-icon { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 0.9rem; pointer-events: none; }
+
+    /* FILTER TABS */
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-family: 'Mulish', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { border-color: var(--rose); color: var(--ink); }
+    .tab-btn.active { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+    /* TOPIC SECTIONS */
+    .topic-section { margin-bottom: 2.5rem; }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .topic-swatch {
+      width: 12px; height: 12px; border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .topic-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .topic-count {
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      margin-left: auto;
+    }
+
+    .ref-list { display: flex; flex-direction: column; gap: 0; }
+
+    .ref-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      transition: background 0.15s;
+    }
+    .ref-item:first-child { border-radius: 12px 12px 0 0; }
+    .ref-item:last-child  { border-radius: 0 0 12px 12px; }
+    .ref-item:only-child  { border-radius: 12px; }
+    .ref-item + .ref-item { border-top: none; }
+    .ref-item:hover { background: var(--bg); }
+
+    .ref-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--sky);
+      text-decoration: none;
+      line-height: 1.45;
+      transition: color 0.15s;
+    }
+    .ref-title:hover { color: var(--ink); text-decoration: underline; }
+
+    .ref-citation {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    /* NO RESULTS */
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 1.75rem 2.5rem; display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--muted); flex-wrap: wrap; gap: 0.75rem; }
+    footer a { color: var(--sky); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 580px) {
+      header, footer { padding: 0 1.25rem; }
+      .page-hero { padding: 2.5rem 1.25rem 2rem; }
+      .page-body { padding: 0 1.25rem; margin-top: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="index.html">Dr. Jane Smith<span class="logo-dot"></span>Research</a>
+    <nav>
+      <a href="conf-2026.html">← 2026 Conference</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> / <a href="conf-2026.html">2026</a> / References
+    </div>
+    <h1>References &amp; <em>Resources</em></h1>
+    <p class="sub">Annual Symposium on [Your Field] · Chicago, IL · June 2026</p>
+  </div>
+
+  <div class="page-body">
+
+    <!-- SEARCH -->
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Search references by title, author, or journal…" oninput="filterRefs()" />
+    </div>
+
+    <!-- FILTER TABS -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="tab-btn active" onclick="setTab('all', this)">All Topics</button>
+      <button class="tab-btn" onclick="setTab('feedback', this)">Feedback</button>
+      <button class="tab-btn" onclick="setTab('construct', this)">Construct</button>
+      <button class="tab-btn" onclick="setTab('prompting', this)">Prompting</button>
+      <button class="tab-btn" onclick="setTab('assessment', this)">Assessment</button>
+      <button class="tab-btn" onclick="setTab('general', this)">General</button>
+      <!-- Add or rename tabs to match your actual topic categories -->
+    </div>
+
+    <!-- ══════════════════════════════════
+         TOPIC: FEEDBACK
+    ═══════════════════════════════════ -->
+    <div class="topic-section" data-topic="feedback">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--rose);"></div>
+        <span class="topic-title">Feedback</span>
+        <span class="topic-count" id="count-feedback">3 articles</span>
+      </div>
+      <div class="ref-list" id="list-feedback">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/example1" target="_blank">
+            Title of Feedback Article One — click to open ↗
+          </a>
+          <span class="ref-citation">Author, A., &amp; Author, B. (2024). <em>Journal of Educational Psychology</em>, 12(3), 45–67.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/example2" target="_blank">
+            Title of Feedback Article Two ↗
+          </a>
+          <span class="ref-citation">Author, C. (2023). <em>Assessment in Education</em>, 8(1), 100–115.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/example3" target="_blank">
+            Title of Feedback Article Three ↗
+          </a>
+          <span class="ref-citation">Author, D., Author, E., &amp; Author, F. (2022). <em>Higher Education</em>, 45(2), 300–320.</span>
+        </div>
+
+        <!-- Add more feedback articles here — copy a ref-item block -->
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TOPIC: CONSTRUCT
+    ═══════════════════════════════════ -->
+    <div class="topic-section" data-topic="construct">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sky);"></div>
+        <span class="topic-title">Construct</span>
+        <span class="topic-count" id="count-construct">3 articles</span>
+      </div>
+      <div class="ref-list" id="list-construct">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/construct1" target="_blank">
+            Title of Construct Article One ↗
+          </a>
+          <span class="ref-citation">Author, G. (2025). <em>Measurement and Evaluation</em>, 30(4), 210–225.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/construct2" target="_blank">
+            Title of Construct Article Two ↗
+          </a>
+          <span class="ref-citation">Author, H., &amp; Author, I. (2023). <em>Applied Measurement in Education</em>, 15(1), 55–70.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/construct3" target="_blank">
+            Title of Construct Article Three ↗
+          </a>
+          <span class="ref-citation">Author, J. (2021). <em>Educational Measurement</em>, 40(2), 88–102.</span>
+        </div>
+
+        <!-- Add more construct articles here -->
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TOPIC: PROMPTING
+    ═══════════════════════════════════ -->
+    <div class="topic-section" data-topic="prompting">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sage);"></div>
+        <span class="topic-title">Prompting</span>
+        <span class="topic-count" id="count-prompting">3 articles</span>
+      </div>
+      <div class="ref-list" id="list-prompting">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/prompting1" target="_blank">
+            Title of Prompting Article One ↗
+          </a>
+          <span class="ref-citation">Author, K., &amp; Author, L. (2024). <em>Language Testing</em>, 22(3), 140–158.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/prompting2" target="_blank">
+            Title of Prompting Article Two ↗
+          </a>
+          <span class="ref-citation">Author, M. (2023). <em>Written Communication</em>, 18(2), 77–95.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/prompting3" target="_blank">
+            Title of Prompting Article Three ↗
+          </a>
+          <span class="ref-citation">Author, N., Author, O., &amp; Author, P. (2022). <em>Assessing Writing</em>, 9(1), 33–50.</span>
+        </div>
+
+        <!-- Add more prompting articles here -->
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TOPIC: ASSESSMENT
+    ═══════════════════════════════════ -->
+    <div class="topic-section" data-topic="assessment">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--peach);"></div>
+        <span class="topic-title">Assessment</span>
+        <span class="topic-count" id="count-assessment">3 articles</span>
+      </div>
+      <div class="ref-list" id="list-assessment">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/assessment1" target="_blank">
+            Title of Assessment Article One ↗
+          </a>
+          <span class="ref-citation">Author, Q. (2024). <em>Practical Assessment, Research &amp; Evaluation</em>, 29(1), 1–18.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/assessment2" target="_blank">
+            Title of Assessment Article Two ↗
+          </a>
+          <span class="ref-citation">Author, R., &amp; Author, S. (2023). <em>Educational Assessment</em>, 11(2), 60–78.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://doi.org/10.xxxx/assessment3" target="_blank">
+            Title of Assessment Article Three ↗
+          </a>
+          <span class="ref-citation">Author, T. (2022). <em>Journal of Educational Measurement</em>, 48(4), 390–410.</span>
+        </div>
+
+        <!-- Add more assessment articles here -->
+
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+         TOPIC: GENERAL
+    ═══════════════════════════════════ -->
+    <div class="topic-section" data-topic="general">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--lavender);"></div>
+        <span class="topic-title">General Resources</span>
+        <span class="topic-count" id="count-general">2 articles</span>
+      </div>
+      <div class="ref-list" id="list-general">
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://example.org/resource1" target="_blank">
+            Useful Website or Dataset One ↗
+          </a>
+          <span class="ref-citation">Brief note about what this resource is and why it is useful for the topic.</span>
+        </div>
+
+        <div class="ref-item">
+          <a class="ref-title" href="https://example.org/resource2" target="_blank">
+            Useful Website or Dataset Two ↗
+          </a>
+          <span class="ref-citation">Brief note about what this resource is and why it is useful for the topic.</span>
+        </div>
+
+        <!-- Add more general resources here -->
+
+      </div>
+    </div>
+
+    <!-- NO RESULTS MESSAGE -->
+    <div class="no-results" id="noResults">No references match your search. Try different keywords.</div>
+
+  </div><!-- /page-body -->
+
+  <footer>
+    <span>© 2026 Dr. Jane Smith</span>
+    <span><a href="conf-2026.html">← Back to 2026 Conference</a></span>
+  </footer>
+
+  <script>
+    let currentTopic = 'all';
+
+    function setTab(topic, btn) {
+      currentTopic = topic;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterRefs();
+    }
+
+    function filterRefs() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      let anyVisible = false;
+
+      document.querySelectorAll('.topic-section').forEach(section => {
+        const sectionTopic = section.getAttribute('data-topic');
+        const topicMatch = currentTopic === 'all' || currentTopic === sectionTopic;
+
+        if (!topicMatch) {
+          section.style.display = 'none';
+          return;
+        }
+
+        const items = section.querySelectorAll('.ref-item');
+        let sectionVisible = 0;
+
+        items.forEach(item => {
+          const text = item.textContent.toLowerCase();
+          const matches = !query || text.includes(query);
+          item.style.display = matches ? '' : 'none';
+          if (matches) sectionVisible++;
+        });
+
+        section.style.display = sectionVisible > 0 ? '' : 'none';
+        if (sectionVisible > 0) anyVisible = true;
+
+        // Update border-radius for visible items
+        const visibleItems = [...items].filter(i => i.style.display !== 'none');
+        visibleItems.forEach((item, idx) => {
+          item.style.borderRadius = '';
+        });
+        if (visibleItems.length === 1) {
+          visibleItems[0].style.borderRadius = '12px';
+        } else if (visibleItems.length > 1) {
+          visibleItems[0].style.borderRadius = '12px 12px 0 0';
+          visibleItems[visibleItems.length - 1].style.borderRadius = '0 0 12px 12px';
+        }
+      });
+
+      document.getElementById('noResults').style.display = anyVisible ? 'none' : 'block';
+    }
+  </script>
+
+</body>
+</html>
