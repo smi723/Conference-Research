@@ -1,1 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <title>2026 Assessment Institute References — Stephanie Iaccarino</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f9f7f4;
+      --surface: #ffffff;
+      --ink: #2e2b28;
+      --muted: #9b9188;
+      --border: #ede9e3;
+      --rose: #dba8ad;
+      --sage: #a0bfaf;
+      --sky: #95b8cc;
+      --peach: #d4ab82;
+      --lavender: #b5a8c8;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Mulish", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .logo-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--rose);
+      border-radius: 50%;
+      margin: 0 0.4rem 0.15rem;
+      vertical-align: middle;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-left: 1.5rem;
+      transition: color 0.15s;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    .page-hero {
+      background: linear-gradient(135deg, #f0f7f3 0%, #eef5fa 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3.5rem 2.5rem 2.5rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .breadcrumb a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    .page-hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.6rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .page-hero h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+
+    .page-hero .sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    .page-body {
+      max-width: 860px;
+      margin: 2.5rem auto 5rem;
+      padding: 0 2rem;
+    }
+
+    .search-wrap {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.75rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: "Mulish", sans-serif;
+      font-size: 0.9rem;
+      background: var(--surface);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-wrap input:focus {
+      border-color: var(--sage);
+    }
+
+    .search-wrap input::placeholder {
+      color: var(--muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab-btn {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      font-family: "Mulish", sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--sage);
+      color: var(--ink);
+    }
+
+    .tab-btn.active {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: #ffffff;
+    }
+
+    .topic-section {
+      margin-bottom: 2.5rem;
+    }
+
+    .topic-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .topic-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .topic-title {
+      font-family: "Playfair Display", serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .topic-count {
+      font-size: 0.72rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.15rem 0.55rem;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .ref-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ref-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+
+    .ref-item:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .ref-item:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .ref-item:only-child {
+      border-radius: 12px;
+    }
+
+    .ref-item + .ref-item {
+      border-top: none;
+    }
+
+    .ref-item:hover {
+      background: var(--bg);
+    }
+
+    .ref-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--sky);
+      text-decoration: none;
+      line-height: 1.45;
+      transition: color 0.15s;
+    }
+
+    .ref-title:hover {
+      color: var(--ink);
+      text-decoration: underline;
+    }
+
+    .ref-citation {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 1.75rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    footer a {
+      color: var(--sky);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 580px) {
+      header,
+      footer {
+        padding: 0 1.25rem;
+      }
+
+      .page-hero {
+        padding: 2.5rem 1.25rem 2rem;
+      }
+
+      .page-body {
+        padding: 0 1.25rem;
+        margin-top: 2rem;
+      }
+
+      nav a {
+        margin-left: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a class="logo" href="index.html">
+      Stephanie Iaccarino<span class="logo-dot"></span>Research
+    </a>
+
+    <nav>
+      assessment-institute-2026.html← Assessment Institute</a>
+      <a href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <div class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> /
+      assessment-institute-2026.htmlAssessment Institute</a> /
+      References
+    </div>
+
+    <h1>References &amp; <em>Resources</em></h1>
+    <p class="sub">The Assessment Institute · 2026</p>
+  </div>
+
+  <div class="page-body">
+
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search by title, author, or journal…"
+        oninput="filterRefs()"
+      />
+    </div>
+
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="setTab('all', this)">
+        All Topics
+      </button>
+
+      <button class="tab-btn" onclick="setTab('wba', this)">
+        Information about WBAs
+      </button>
+
+      <button class="tab-btn" onclick="setTab('narrative', this)">
+        Preference for Narrative Feedback
+      </button>
+
+      <button class="tab-btn" onclick="setTab('hitl', this)">
+        Human-in-the-Loop
+      </button>
+
+      <button class="tab-btn" onclick="setTab('prompting', this)">
+        Prompting
+      </button>
+
+      <button class="tab-btn" onclick="setTab('platforms', this)">
+        Qualitative Analysis via AI Platforms
+      </button>
+    </div>
+
+    <!-- CATEGORY 1: INFORMATION ABOUT WBAs -->
+
+    <div class="topic-section" data-topic="wba">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--rose);"></div>
+        <span class="topic-title">Information about WBAs</span>
+        <span class="topic-count">3 articles</span>
+      </div>
+
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.12809/hkmj2311361"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Workplace-based assessments: What, why, and how to implement? ↗
+          </a>
+
+          <span class="ref-citation">
+            So, H. Y., Choi, Y. F., Chan, P. T., Chan, A. K. M.,
+            Ng, G. W. Y., &amp; Wong, G. K. C. (2024).
+            <em>Hong Kong Medical Journal, 30</em>(3), 250–254.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1111/medu.14221"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Workplace-based assessments in postgraduate medical education:
+            A hermeneutic review ↗
+          </a>
+
+          <span class="ref-citation">
+            Prentice, S., Benson, J., Kirkpatrick, E., &amp; Schuwirth, L.
+            (2020). <em>Medical Education, 54</em>(11), 981–992.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1080/01421590701775453"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Workplace-based assessment as an educational tool:
+            AMEE Guide No. 31 ↗
+          </a>
+
+          <span class="ref-citation">
+            Norcini, J., &amp; Burch, V. (2007).
+            <em>Medical Teacher, 29</em>(9–10), 855–871.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CATEGORY 2: PREFERENCE FOR NARRATIVE FEEDBACK -->
+
+    <div class="topic-section" data-topic="narrative">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sky);"></div>
+        <span class="topic-title">Preference for Narrative Feedback</span>
+        <span class="topic-count">2 articles</span>
+      </div>
+
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1016/j.bja.2021.06.038"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Key dimensions of innovations in workplace-based assessment
+            for postgraduate medical education: A scoping review ↗
+          </a>
+
+          <span class="ref-citation">
+            Weller, J. M., Coomber, T., Chen, Y., &amp; Castanelli, D. J.
+            (2021). <em>British Journal of Anaesthesia, 127</em>(5),
+            689–703.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1097/ACM.0000000000004366"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Implementation and use of workplace-based assessment in clinical
+            learning environments: A scoping review ↗
+          </a>
+
+          <span class="ref-citation">
+            Anderson, H. L., Kurtz, J., &amp; West, D. C. (2021).
+            <em>Academic Medicine, 96</em>(Supplement 2), S164–S174.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CATEGORY 3: HUMAN-IN-THE-LOOP -->
+
+    <div class="topic-section" data-topic="hitl">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--sage);"></div>
+        <span class="topic-title">Human-in-the-Loop (HITL)</span>
+        <span class="topic-count">8 articles</span>
+      </div>
+
+      <div class="ref-list">
+
+        <div class="ref-item">
+          https://doi.org/10.3233/SHTI250637
+            Artificial intelligence in narrative feedback analysis for
+            competency-based medical education: A review ↗
+          </a>
+
+          <span class="ref-citation">
+            Khan, S. A., Taiyara, J., Zary, N., &amp; Otaki, F. (2025).
+            <em>Studies in Health Technology and Informatics, 327</em>,
+            1423–1427.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.3390/psycholint7030078"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Artificial intelligence in qualitative research:
+            Beyond outsourcing data analysis to the machine ↗
+          </a>
+
+          <span class="ref-citation">
+            Brailos, A. (2025).
+            <em>Psychology International, 7</em>(3), Article 78.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1097/ACM.0000000000006134"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Artificial intelligence to support qualitative data analysis:
+            Promises, approaches, and pitfalls ↗
+          </a>
+
+          <span class="ref-citation">
+            Cook, D. A., Ginsburg, S., Sawatsky, A. P., Kuper, A.,
+            &amp; D'Angelo, J. D. (2025).
+            <em>Academic Medicine, 100</em>(10), 1134–1149.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.3390/e28040377"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Human-in-the-loop artificial intelligence:
+            A systematic review of concepts, methods, and applications ↗
+          </a>
+
+          <span class="ref-citation">
+            Lazaros, K., Vrahatis, A. G., &amp; Kotsiantis, S. (2026).
+            <em>Entropy, 28</em>(4), 377.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1007/s11135-025-02066-1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Artificial intelligence in qualitative analysis:
+            A practical guide and reflections based on results from using
+            GPT to analyze interview data in a substance use program ↗
+          </a>
+
+          <span class="ref-citation">
+            Yang, Y., &amp; Ma, L. (2025).
+            <em>Quality &amp; Quantity, 59</em>, 2511–2534.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1038/s41598-025-18969-w"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Evaluation of large language models within GenAI in qualitative
+            research ↗
+          </a>
+
+          <span class="ref-citation">
+            Mehta, S. D., Paul, S., Awiti, E., Young, S., Zulaika, G.,
+            Otieno, F. O., Phillips-Howard, P. A., Mason, L.,
+            &amp; Bhaumik, R. (2025). <em>Scientific Reports, 15</em>.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1002/tl.20631"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Enhancing qualitative research in higher education assessment
+            through generative AI integration: A path toward meaningful
+            insights and a cautionary tale ↗
+          </a>
+
+          <span class="ref-citation">
+            Slotnick, R. C., &amp; Boeing, J. Z. (2025).
+            <em>New Directions for Teaching and Learning, 2025</em>(182),
+            97–112.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          00157-8/fulltext"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Best practices for implementing ChatGPT, large language models,
+            and artificial intelligence in qualitative and survey-based
+            research ↗
+          </a>
+
+          <span class="ref-citation">
+            Kantor, J. (2024).
+            <em>JAAD International, 14</em>, 22–23.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CATEGORY 4: PROMPTING -->
+
+    <div class="topic-section" data-topic="prompting">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--peach);"></div>
+        <span class="topic-title">Prompting</span>
+        <span class="topic-count">2 articles</span>
+      </div>
+
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://arxiv.org/abs/2102.07350"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Prompt programming for large language models:
+            Beyond the few-shot paradigm ↗
+          </a>
+
+          <span class="ref-citation">
+            Reynolds, L., &amp; McDonell, K. (2021). <em>arXiv</em>.
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1080/0142159X.2025.2504106"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Using large language models (LLMs) to apply analytic rubrics
+            to score post-encounter notes ↗
+          </a>
+
+          <span class="ref-citation">
+            Runyon, C. (2025).
+            <em>Medical Teacher, 47</em>(11), 1772–1780.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CATEGORY 5: QUALITATIVE ANALYSIS VIA AI PLATFORMS -->
+
+    <div class="topic-section" data-topic="platforms">
+      <div class="topic-header">
+        <div class="topic-swatch" style="background: var(--lavender);"></div>
+        <span class="topic-title">
+          Qualitative Analysis via AI Platforms
+        </span>
+        <span class="topic-count">2 articles</span>
+      </div>
+
+      <div class="ref-list">
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1111/aphw.70038"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Generative AI for thematic analysis in a maternal health study:
+            Coding semi-structured interviews using large language models
+            (LLMs) ↗
+          </a>
+
+          <span class="ref-citation">
+            Qiao, S., Fang, X., Garrett, C., Zhang, R., Li, X.,
+            &amp; Kang, Y. (2025).
+            <em>Applied Psychology: Health and Well-Being, 17</em>(3).
+          </span>
+        </div>
+
+        <div class="ref-item">
+          <a
+            class="ref-title"
+            href="https://doi.org/10.1177/00491241251339188"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Updating “The future of coding”:
+            Qualitative coding with generative large language models ↗
+          </a>
+
+          <span class="ref-citation">
+            Than, N., Fan, L., Law, T., Nelson, L. K.,
+            &amp; McCall, L. (2025).
+            <em>Sociological Methods &amp; Research, 54</em>(3), 849–888.
+          </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="no-results" id="noResults">
+      No references match your search. Try different keywords.
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 Stephanie Iaccarino</span>
+
+    assessment-institute-2026.html
+      ← Back to The Assessment Institute
+    </a>
+  </footer>
+
+  <script>
+    let currentTopic = "all";
+
+    function setTab(topic, button) {
+      currentTopic = topic;
+
+      document.querySelectorAll(".tab-btn").forEach(function (tab) {
+        tab.classList.remove("active");
+      });
+
+      button.classList.add("active");
+      filterRefs();
+    }
+
+    function filterRefs() {
+      const query = document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+      let anyVisible = false;
+
+      document.querySelectorAll(".topic-section").forEach(function (section) {
+        const sectionTopic = section.getAttribute("data-topic");
+
+        const topicMatches =
+          currentTopic === "all" || currentTopic === sectionTopic;
+
+        if (!topicMatches) {
+          section.style.display = "none";
+          return;
+        }
+
+        const items = section.querySelectorAll(".ref-item");
+        let visibleItems = 0;
+
+        items.forEach(function (item) {
+          const text = item.textContent.toLowerCase();
+          const searchMatches = !query || text.includes(query);
+
+          item.style.display = searchMatches ? "" : "none";
+
+          if (searchMatches) {
+            visibleItems++;
+          }
+        });
+
+        section.style.display = visibleItems > 0 ? "" : "none";
+
+        if (visibleItems > 0) {
+          anyVisible = true;
+        }
+
+        const visibleReferences = Array.from(items).filter(function (item) {
+          return item.style.display !== "none";
+        });
+
+        visibleReferences.forEach(function (item) {
+          item.style.borderRadius = "";
+        });
+
+        if (visibleReferences.length === 1) {
+          visibleReferences[0].style.borderRadius = "12px";
+        } else if (visibleReferences.length > 1) {
+          visibleReferences[0].style.borderRadius = "12px 12px 0 0";
+          visibleReferences[
+            visibleReferences.length - 1
+          ].style.borderRadius = "0 0 12px 12px";
+        }
+      });
+
+      document.getElementById("noResults").style.display =
+        anyVisible ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
